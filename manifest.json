@@ -1,0 +1,15 @@
+{
+  "name": "Мини Приложение PRO",
+  "short_name": "МиниAppPRO",
+  "start_url": "app.html",
+  "display": "standalone",
+  "background_color": "#f0f8ff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

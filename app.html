@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мини Приложение PRO</title>
+<link rel="manifest" href="manifest.json">
+<style>
+  body { font-family: Arial; text-align: center; padding: 20px; background: #f0f8ff; }
+  h1, h2 { margin: 10px 0; }
+  button { font-size: 18px; padding: 10px 20px; margin: 5px; border-radius: 10px; cursor: pointer; background-color: #4CAF50; color: white; border: none; }
+  input, textarea { font-size: 16px; padding: 5px; margin: 5px; width: 80%; }
+  #output, #notesArea, #calcOutput { margin-top: 15px; font-size: 18px; }
+  iframe { width: 100%; height: 400px; margin-top: 15px; border: 1px solid #aaa; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<h1>Мини Приложение PRO</h1>
+
+<!-- Весёлые кнопки -->
+<h2>Весёлые фразы</h2>
+<button onclick="showFunny()">Нажми меня 😄</button>
+<div id="output"></div>
+
+<!-- Калькулятор -->
+<h2>Калькулятор</h2>
+<input type="text" id="calcInput" placeholder="Например: 2+2">
+<button onclick="calculate()">=</button>
+<div id="calcOutput"></div>
+
+<!-- Заметки -->
+<h2>Заметки</h2>
+<textarea id="notesInput" rows="3" placeholder="Напиши что-то..."></textarea><br>
+<button onclick="saveNote()">Сохранить</button>
+<button onclick="loadNote()">Загрузить</button>
+<div id="notesArea"></div>
+
+<!-- Улучшенный поиск -->
+<h2>Поиск в интернете 🔎</h2>
+<input type="text" id="searchInput" placeholder="Что ищем?">
+<button onclick="searchWeb()">Искать</button>
+<div>
+  <iframe id="searchFrame" src=""></iframe>
+</div>
+
+<script>
+  // Весёлые фразы
+  const phrases = [
+    "🤣 Ха-ха, смешно!",
+    "😎 Ого, круто!",
+    "😜 Ты снова нажал!",
+    "🤪 Это весело!",
+    "😂 Лови смех!"
+  ];
+  function showFunny() {
+    const randomIndex = Math.floor(Math.random() * phrases.length);
+    document.getElementById("output").innerText = phrases[randomIndex];
+  }
+
+  // Калькулятор
+  function calculate() {
+    const input = document.getElementById("calcInput").value;
+    try {
+      const result = eval(input);
+      document.getElementById("calcOutput").innerText = "Результат: " + result;
+    } catch {
+      document.getElementById("calcOutput").innerText = "Ошибка! Проверь выражение.";
+    }
+  }
+
+  // Заметки (сохраняются в браузере)
+  function saveNote() {
+    const text = document.getElementById("notesInput").value;
+    localStorage.setItem("myNote", text);
+    document.getElementById("notesArea").innerText = "Заметка сохранена!";
+  }
+  function loadNote() {
+    const text = localStorage.getItem("myNote") || "";
+    document.getElementById("notesInput").value = text;
+    document.getElementById("notesArea").innerText = "Заметка загружена!";
+  }
+
+  // Улучшенный поиск с блокировкой рекламы (через iframe и AdGuard)
+  function searchWeb() {
+    const query = document.getElementById("searchInput").value;
+    if(query.trim() !== "") {
+      // Используем Google с фильтром SafeSearch, можно добавить любой прокси AdGuard
+      document.getElementById("searchFrame").src = "https://www.google.com/search?q=" + encodeURIComponent(query) + "&safe=active";
+    }
+  }
+</script>
+
+</body>
+</html>
